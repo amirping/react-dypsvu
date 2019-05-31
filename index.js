@@ -24,7 +24,10 @@ class App extends Component {
       data: [
         {
           id: 'p1', name: 'parent1', childdep: [
-            { id: 'depchil1', name: 'dispchil1' },
+            { id: 'depchil1', name: 'dispchil1' ,childdep:[
+              { id: 'lota1', name: 'departement m3afet 1 ' },
+              { id: 'lota2', name: 'departement m3afet 2' }
+            ] },
             { id: 'depchil2', name: 'dispchil2' },
             { id: 'depchil3', name: 'dispchil3' }
           ]
@@ -59,27 +62,70 @@ class App extends Component {
             </div>
           </div>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          {dep.childdep && dep.childdep.length > 0 && (<ExpansionPanelDetails>
             <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell>id</TableCell>
-            <TableCell align="right">name</TableCell>           
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {dep.childdep.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-          </ExpansionPanelDetails>
+            <TableHead>
+              <TableRow>
+                <TableCell>id</TableCell>
+                <TableCell align="right">name</TableCell>           
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {dep.childdep.map(row => {
+                if(row.childdep && row.childdep.length > 0){
+                  return (
+                    
+                    <TableRow colSpan={2}>
+                    <TableCell colSpan={2}>
+                     <div className="allspace">
+                     <ExpansionPanel square className="fullwidth paddingNone noBox" key={row.id}>
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        className="paddingNone"
+                        id={row.id}>
+                        <div className="fakeHead2">
+                        <div>
+                          <Typography>{row.id}</Typography>
+                        </div>
+                        <div >
+                          <Typography >{row.name}</Typography>
+                        </div>
+                      </div>
+                      </ExpansionPanelSummary>
+                       <ExpansionPanelDetails>
+                        <Table>
+                           <TableBody>
+                        {row.childdep.map(more=>(
+                        
+                            <TableRow>
+                            <TableCell>{more.id}</TableCell>
+                            <TableCell>{more.name}</TableCell>
+                            </TableRow>
+                            
+                        ))}
+                         </TableBody>
+                        </Table>
+                    </ExpansionPanelDetails>
+                    </ExpansionPanel> 
+                     </div>  
+                     </TableCell> 
+                       
+                    </TableRow>
+                                 
+                      )
+                }else{
+                  return (<TableRow key={row.name}>
+                  <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell align="right">{row.name}</TableCell>      
+                </TableRow>)
+                }
+              })}
+            </TableBody>
+          </Table>
+          </ExpansionPanelDetails>)}
         </ExpansionPanel>
       ))}       
       </Box>

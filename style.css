@@ -7,3 +7,24 @@ h1, p {
   justify-content: space-between;
   width: 90%;
 }
+.fakeHead2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.fullwidth{
+  width: 100% !important;
+}
+.paddingNone{
+  padding-left: 0;
+  padding-right:0;
+}
+.allspace{
+  display:flex;
+  flex-grow: 1;
+  align-content: stretch;
+}
+.noBox{
+  box-shadow: none;
+}
